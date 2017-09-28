@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+//Não está logado
+if (!isset($_SESSION['nome'])) {
+		header('Location: login.php?erro=1');
+		exit();
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +30,7 @@
 	    <li><a href="edicao.php">Inserir</a></li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
-      	<li><a href="login.php?logout=1"><span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
+      	<li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout </a></li>
       </ul>
 	</nav><br/><br/>
 	<!-- FIM BARRA DE NAVEGAÇÃO -->
@@ -41,24 +50,17 @@
 			    </thead>
 			    <!-- DADOS -->
 			    <tbody>
+			    	<?php foreach($_SESSION['usuarios'] as $chave => $usuario): ?> 
 			      	<tr>
-			        	<td>1</td>
-			        	<td>Carlos</td>
-			        	<td>carlos@gmail.com</td>
+			        	<td><?=$chave?></td>
+			        	<td><?=$usuario['nome']?></td>
+			        	<td><?=$usuario['email']?></td>
 			        	<td>
-			        		<a href="edicao.php">Editar</a>
-			        		<a href="">Excluir</a>
+			    			<a href="edicao.php?id=<?=$chave?>">Editar</a>
+			    			<a href="excluir.php?id=<?=$chave?>">Excluir</a>
 			        	</td>
 			      	</tr>
-			      	<tr>
-			        	<td>2</td>
-			        	<td>Mylana</td>
-			        	<td>mylana@gmail.com</td>
-			      		<td>
-			        		<a href="edicao.php">Editar</a>
-			        		<a href="">Excluir</a>
-			        	</td>
-			      	</tr>	 
+			      	<?php endforeach; ?>
 			    </tbody>
 			    <!-- DADOS [FIM] -->
 			</table>

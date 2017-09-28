@@ -1,3 +1,25 @@
+<?php
+session_start();
+$email = $_POST['email'] ?? false;
+
+if (isset($_GET['erro'])) {
+	$erro = 'É preciso estar logado';
+}
+
+if ($email != false) {
+	$senha = $_POST['senha'] ?? false;
+	if ($email == 'carlos@teste.com' && $senha == '123456') {
+		
+		$_SESSION['nome'] = 'Carlos';
+
+		header("Location: index.php");
+		die;
+	} else {
+		$erro = 'Email ou Senha incorreta';
+	}
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,27 +54,30 @@
 	<div id="login">
 			<h1>Login</h1>
 
-
-			<!-- LOGIN ou SENHA INCORRETA -->
+				<?php if (isset($erro)): ?>
+				<!-- LOGIN ou SENHA INCORRETA -->
 				<div class="alert alert-danger">
-					<strong>Erro!</strong> Login ou Senha Incorreta
+					<strong>Erro!</strong> <?=$erro?>
 				</div>
 				<!-- FIM [LOGIN OU SENHA INCORRETA] -->
+				<?php endif; ?>
+
 
 			<form action="" method="post">
 				
 			  	<div class="form-group">
 			    	<label for="campo-email">Email:</label>
-			    	<input type="email" class="form-control" id="campo-email">
+			    	<input type="email" name="email" class="form-control" id="campo-email">
 			  	</div>
 
 			  	<div class="form-group">
 			    	<label for="campo-senha">Senha:</label>
-			    	<input type="password" class="form-control" id="campo-senha">
+			    	<input type="password" name="senha" class="form-control" id="campo-senha">
 			  	</div>
   				
   				<button type="submit" class="btn btn-default">Logar	</button>				
 			</form>
+
 	</div>
 </body>
 </html>
