@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once(__DIR__.'\classes\UsuarioDAO.php');
+$usuarioDAO = new UsuarioDAO; 
+
 
 //Não está logado
 if (!isset($_SESSION['nome'])) {
@@ -50,7 +53,7 @@ if (!isset($_SESSION['nome'])) {
 			    </thead>
 			    <!-- DADOS -->
 			    <tbody>
-			    	<?php foreach($_SESSION['usuarios'] as $chave => $usuario): ?> 
+			    	<?php foreach($usuarioDAO->selectAll() as $chave => $usuario): ?> 
 			      	<tr>
 			        	<td><?=$chave?></td>
 			        	<td><?=$usuario['nome']?></td>

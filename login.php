@@ -1,5 +1,9 @@
 <?php
 session_start();
+require(__DIR__.'/classes/UsuarioDAO.php');
+
+$usuarioDAO = new UsuarioDAO;
+
 $email = $_POST['email'] ?? false;
 
 if (isset($_GET['erro'])) {
@@ -8,9 +12,11 @@ if (isset($_GET['erro'])) {
 
 if ($email != false) {
 	$senha = $_POST['senha'] ?? false;
-	if ($email == 'carlos@teste.com' && $senha == '123456') {
+	$usuario = $usuarioDAO->login($email, $senha);
+
+	if (!empty($usuario)) {
 		
-		$_SESSION['nome'] = 'Carlos';
+		$_SESSION['nome'] = $usuario['nome'];
 
 		header("Location: index.php");
 		die;

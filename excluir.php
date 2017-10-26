@@ -1,9 +1,12 @@
 <?php 
 session_start();
+require(__DIR__.'/classes/UsuarioDAO.php');
+
+$usuarioDAO = new UsuarioDAO;
 
 $posicao = $_GET['id'] ?? false;
 
 if ($posicao !== false) 
-	unset($_SESSION['usuarios'][$posicao]);
+	$usuarioDAO->delete($posicao);
 
 header('Location: index.php');

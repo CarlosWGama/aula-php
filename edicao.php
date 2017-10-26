@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once(__DIR__.'\classes\UsuarioDAO.php');
+$usuarioDAO = new UsuarioDAO; 
 
 //Não está logado
 if (!isset($_SESSION['nome'])) {
@@ -15,31 +17,22 @@ $nome = '';
 $email = '';
 $senha = '';
 if (isset($_POST['edicao'])) {
-		$nome = $_POST['nome'] ?? '';
-		$email = $_POST['email'] ?? '';
-		$senha = $_POST['senha'] ?? '';
+		$campos['nome'] = $_POST['nome'] ?? '';
+		$campos['email'] = $_POST['email'] ?? '';
+		$campos['senha'] = $_POST['senha'] ?? '';
 
 
-		if (empty($nome)) $erros[] = 'Nome obrigatório';
-		if (empty($email)) $erros[] = 'Email obrigatório';
-		if (empty($senha)) $erros[] = 'Senha obrigatória';
+		if (empty($campos['nome'])) $erros[] = 'Nome obrigatório';
+		if (empty($campos['email'])) $erros[] = 'Email obrigatório';
+		if (empty($campos['senha'])) $erros[] = 'Senha obrigatória';
 
 		if (count($erros) == 0) {
 			//Cadastra
 			if ($posicao === false) {
-				$_SESSION['usuarios'][] = [
-						'nome' 		=> $nome,
-						'email'		=> $email,
-						'senha'		=> $senha,
-						'id'		=> 1
-				];
+				$usuarioDAO->insert($campos);
 			} else {
 				//Edicao
-				$_SESSION['usuarios'][$posicao] = [
-						'nome' 		=> $nome,
-						'email'		=> $email,
-						'senha'		=> $senha
-				];
+				$usuarioDAO->update($campos, $posicao);
 			}
 			header('Location: index.php');
 			exit();
@@ -47,8 +40,9 @@ if (isset($_POST['edicao'])) {
 }
 
 if ($posicao !== false) {
-		$nome = $_SESSION['usuarios'][$posicao]['nome'];
-		$email = $_SESSION['usuarios'][$posicao]['email'];
+		$usuario = $usuarioDAO->selectOne($posicao);
+		$nome = $usuario['nome'];
+		$email = $usuario['email'];
 }
 
 
