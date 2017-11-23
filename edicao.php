@@ -76,7 +76,7 @@ if ($posicao !== false) {
 	<!-- FIM BARRA DE NAVEGAÇÃO -->
 	
 	<div class="container">
-			<h1>Cadastro de Produto</h1>
+			<h1>Cadastro de Usuários</h1>
 
 			<?php if (count($erros) > 0): ?>
 			<!-- ERRO NO CADASTRO -->

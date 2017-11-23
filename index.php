@@ -40,7 +40,7 @@ if (!isset($_SESSION['nome'])) {
 
 	<!-- Conteudo principal -->
 	<div class="container">
-			<h1>Produtos</h1>
+			<h1>Usuários</h1>
 
 			<table class="table table-hover">
 			    <thead>
