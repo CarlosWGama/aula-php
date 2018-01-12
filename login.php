@@ -3,13 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>Sistema</title>
-	<!-- Latest compiled and minified CSS -->
+	
+	<!-- JQUERY -->
+	<script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>	
+
+	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
-
-	<!-- Latest compiled and minified JavaScript -->
+	<link rel="stylesheet" href="assets/css/custom.css">
 	<script src="assets/js/bootstrap.min.js"></script>
 
 	<style type="text/css">
